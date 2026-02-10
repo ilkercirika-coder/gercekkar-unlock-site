@@ -1,0 +1,1602 @@
+﻿<!doctype html>
+<html>
+  <head>
+    <!-- Theme palette tuned (light more neutral, dark more layered) -->
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        font-size: 14px;
+        line-height: 1.4;
+        font-weight: 400;
+        font-family: "Inter", "Roboto", "Segoe UI", "Helvetica Neue", "Arial", system-ui,
+          -apple-system, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Noto Color Emoji";
+        --bg: #eef5ff;
+        --fg: #0f172a;
+        --muted: #64748b;
+        --border: #dbe5f2;
+        --card: #ffffff;
+        --accent: #2f6fed;
+        --card-soft: #ffffff;
+        --surface-soft: #e9f0fb;
+        --surface-hover: #f1f5fd;
+        --surface-active: #e2ebfb;
+        --tp-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        --accent-soft: #e7efff;
+      }
+      html[data-theme="light"] {
+        color-scheme: light;
+        --bg: #f3f6fb;
+        --fg: #0f172a;
+        --muted: #64748b;
+        --border: #dbe5f2;
+        --card: #ffffff;
+        --accent: #2f6fed;
+        --card-soft: #ffffff;
+        --surface-soft: #e9f0fb;
+        --surface-hover: #f1f5fd;
+        --surface-active: #e2ebfb;
+        --tp-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+        --accent-soft: #e7efff;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #111827;
+        --fg: #e5e7eb;
+        --muted: #94a3b8;
+        --border: #334155;
+        --card: #1f2937;
+        --accent: #60a5fa;
+        --card-soft: #1f2937;
+        --surface-soft: #243244;
+        --surface-hover: #2d3b4f;
+        --surface-active: #36485f;
+        --tp-shadow: 0 10px 28px rgba(2, 6, 23, 0.45);
+        --accent-soft: #1e3a5f;
+      }
+      :root {
+        --tp-bg: var(--bg);
+        --tp-card: var(--card);
+        --tp-border: var(--border);
+        --tp-text: var(--fg);
+        --tp-muted: var(--muted);
+        --tp-primary: var(--accent);
+        --tp-primary-soft: var(--accent-soft);
+        --tp-success: #16a34a;
+        --tp-tile-head-bg: color-mix(in srgb, var(--surface-soft) 85%, var(--tp-card));
+        --tp-input-h: 32px;
+        --tp-input-fs: 13px;
+        --tp-input-px: 10px;
+        --tp-input-pr-inline: 56px;
+        --tp-input-radius: 8px;
+        --tp-input-bg: var(--tp-card);
+        --tp-input-border-color: color-mix(in srgb, var(--tp-border) 92%, #cbd5e1);
+        --tp-input-focus-color: rgba(120, 170, 255, 0.24);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        font-weight: inherit;
+        font-synthesis: none;
+        text-rendering: geometricPrecision;
+      }
+      input,
+      select,
+      textarea {
+        color-scheme: inherit;
+      }
+      html[data-theme="light"],
+      html[data-theme="light"] body,
+      html[data-theme="light"] input,
+      html[data-theme="light"] select,
+      html[data-theme="light"] textarea {
+        color-scheme: light !important;
+      }
+      html[data-theme="dark"],
+      html[data-theme="dark"] body,
+      html[data-theme="dark"] input,
+      html[data-theme="dark"] select,
+      html[data-theme="dark"] textarea {
+        color-scheme: dark !important;
+      }
+      table,
+      th,
+      td,
+      button,
+      input,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        font-weight: inherit;
+      }
+      .number,
+      .price,
+      .pct,
+      .metric {
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+      }
+      body {
+        margin: 0;
+        background: var(--tp-bg);
+        color: var(--tp-text);
+        padding: 14px;
+        width: 560px;
+        forced-color-adjust: none;
+      }
+      html[data-mode="panel"] body {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        overflow-x: hidden;
+      }
+      .tp-shell {
+        background: var(--tp-card);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: var(--tp-shadow);
+        width: 100%;
+        max-width: 100%;
+      }
+      html[data-mode="panel"] .tp-shell {
+        min-height: 0;
+      }
+      .tp-topbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        padding: 0;
+        min-height: 40px;
+        border-radius: 12px;
+        background: var(--surface-soft);
+        margin-bottom: 8px;
+      }
+      .tp-brand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .tp-controlStack {
+        position: absolute;
+        left: 8px;
+        right: 34px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
+        pointer-events: none;
+      }
+      .tp-controlStack .tp-themeToggle {
+        width: 96px;
+        pointer-events: auto;
+      }
+      .tp-controlStack .tp-themeBtn {
+        flex: 1 1 0;
+        text-align: center;
+      }
+      .tp-panelClose {
+        display: none;
+      }
+      html[data-mode="panel"] .tp-panelClose {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--tp-border);
+        border-radius: 6px;
+        background: var(--tp-card);
+        color: var(--tp-muted);
+        font-size: 13px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      html[data-mode="panel"] .tp-panelClose:hover {
+        background: var(--surface-hover);
+      }
+      .tp-title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .tp-logoWrap {
+        height: 30px;
+        width: 96px;
+        overflow: visible;
+        display: flex;
+        align-items: center;
+      }
+      .tp-logo {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: none;
+        /* Source PNG has large transparent margins; compensate so mark stays visible. */
+        transform: translate(-22%, 4.5%) scale(1.20);
+        transform-origin: left center;
+      }
+      .tp-logo--dark {
+        display: none;
+      }
+      html[data-theme="dark"] .tp-logo--dark {
+        display: block;
+      }
+      html[data-theme="dark"] .tp-logo--light {
+        display: none;
+      }
+      .tp-themeToggle {
+        display: inline-flex;
+        border: 1px solid var(--tp-border);
+        border-radius: 999px;
+        overflow: hidden;
+        background: var(--tp-card);
+      }
+      .tp-themeBtn {
+        border: 0;
+        background: transparent;
+        color: var(--tp-muted);
+        font-size: 10px;
+        line-height: 1;
+        padding: 4px 7px;
+        cursor: pointer;
+      }
+      .tp-themeBtn.isActive {
+        background: var(--tp-primary-soft);
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .tp-btn {
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .tp-btn:hover {
+        filter: brightness(0.97);
+      }
+      .tp-vat {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 8px 0 14px;
+      }
+      .tp-vat label {
+        font-size: 12px;
+        color: var(--tp-muted);
+        font-weight: 600;
+      }
+      .tp-segment {
+        display: inline-flex;
+        border: 1px solid var(--tp-border);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--tp-card);
+      }
+      .tp-segment button {
+        border: none;
+        background: transparent;
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .tp-segment button.active {
+        background: var(--tp-primary-soft);
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .tp-section {
+        margin-bottom: 14px;
+      }
+      html[data-mode="panel"] .tp-section {
+        margin-bottom: 8px;
+      }
+      html[data-mode="panel"] .tp-section + .tp-section {
+        margin-top: 0;
+      }
+      .tp-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        color: var(--tp-muted);
+        margin: 0 0 8px;
+      }
+      html[data-mode="panel"] .tp-section-title {
+        margin: 0 0 4px;
+      }
+      .tpSectionHead {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-bottom: 4px;
+        min-height: 24px;
+      }
+      .tpSectionHead .tp-section-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        text-align: center;
+        white-space: nowrap;
+        font-weight: 800;
+      }
+      .tpSectionActions {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 2px;
+        flex: 0 0 auto;
+      }
+      .tp-frame--sellers .tpSectionHead .tpSectionActions {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .tp-frame--sellers {
+        position: relative;
+        padding-bottom: 26px;
+        overflow: hidden;
+      }
+      .tp-frame--sellers > .tpSectionActions {
+        position: absolute;
+        right: 20px;
+        bottom: 0;
+        z-index: 3;
+        width: 78px;
+        align-items: center;
+      }
+      html[data-mode="panel"] .tp-table td:nth-child(6),
+      html[data-mode="panel"] .tp-table th:nth-child(6) {
+        text-align: center !important;
+      }
+      .tp-frame--sellers .tpSectionHead {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        margin-bottom: 6px;
+        min-height: 0;
+      }
+      .tp-frame--sellers .tpSectionHead .tp-section-title {
+        position: static;
+        left: auto;
+        transform: none;
+        margin: 0;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        color: var(--tp-muted);
+      }
+      .tpSectionActions .tp-btn {
+        padding: 2px 6px;
+        font-size: 9px;
+      }
+      .tpSectionActions .tp-refreshStatus {
+        font-size: 9px;
+        line-height: 1;
+        margin-top: 0;
+        text-align: right;
+      }
+      .tpSectionActions .tp-refreshStatus:empty {
+        display: none;
+      }
+      .tp-frame {
+        border: 1px solid var(--tp-border);
+        border-radius: 12px;
+        padding: 10px;
+        background: var(--card-soft);
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      }
+      html[data-mode="panel"] .tp-section.tp-frame {
+        padding-top: 10px;
+        padding-right: 10px;
+        padding-bottom: 8px;
+        padding-left: 10px;
+      }
+      .tp-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 0;
+        border-radius: 0;
+      }
+      html[data-mode="panel"] .tp-table {
+        table-layout: fixed;
+        width: 100%;
+      }
+      .tp-table th,
+      .tp-table td {
+        padding: 4px 8px;
+        font-size: 12px;
+        border-bottom: 1px solid var(--tp-border);
+        text-align: left;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tp-table th:nth-child(2),
+      .tp-table td:nth-child(2) {
+        text-align: left;
+      }
+      .tp-table th:nth-child(1),
+      .tp-table td:nth-child(1),
+      .tp-table th:nth-child(n + 3),
+      .tp-table td:nth-child(n + 3) {
+        text-align: right;
+        padding-left: 6px;
+        padding-right: 6px;
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+      }
+      .tp-table .price-num {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+      }
+      .tp-table .price-cur {
+        margin-left: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        opacity: 0.6;
+      }
+      .tp-table th:last-child,
+      .tp-table td:last-child {
+        padding-right: 4px;
+      }
+      html[data-mode="panel"] .tp-table th,
+      html[data-mode="panel"] .tp-table td {
+        padding: 3px 6px;
+        font-size: 11px;
+        line-height: 1.05;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(1),
+      html[data-mode="panel"] .tp-table td:nth-child(1) {
+        width: 28px;
+        white-space: nowrap;
+        text-align: right;
+        padding-left: 6px;
+        padding-right: 4px;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(2),
+      html[data-mode="panel"] .tp-table td:nth-child(2) {
+        width: auto;
+        padding-left: 6px;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(3),
+      html[data-mode="panel"] .tp-table td:nth-child(3) {
+        width: 42px;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(4),
+      html[data-mode="panel"] .tp-table td:nth-child(4) {
+        width: 44px;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(5),
+      html[data-mode="panel"] .tp-table td:nth-child(5) {
+        width: 58px;
+        white-space: nowrap;
+        text-align: left;
+        padding-left: 2px;
+        padding-right: 0;
+      }
+      html[data-mode="panel"] .tp-table td:nth-child(5) {
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: none;
+        text-align: center !important;
+      }
+      html[data-mode="panel"] .tp-table td:nth-child(5) .price-num {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      html[data-mode="panel"] .tp-table td:nth-child(5) .price-cur {
+        position: static;
+        transform: none;
+        margin-left: 1px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(6),
+      html[data-mode="panel"] .tp-table td:nth-child(6) {
+        width: 78px;
+        white-space: nowrap;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      html[data-mode="panel"] .tp-table th:nth-child(2),
+      html[data-mode="panel"] .tp-table td:nth-child(2) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      html[data-mode="panel"] .tp-buybox {
+        gap: 3px;
+      }
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow .tp-buybox {
+        gap: 3px;
+        padding-left: 0;
+        margin-left: 0;
+      }
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow .tp-buybox::before,
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow .tp-buybox::after {
+        content: none !important;
+      }
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td:nth-child(2),
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td:nth-child(6) {
+        font-weight: 700;
+      }
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td {
+        background: #e7f3ea;
+        font-weight: 1000;
+        color: #0f172a;
+      }
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td .price-num,
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td .price-cur,
+      html[data-mode="panel"] .tp-table tbody tr.isBuyboxRow td .tp-buybox span {
+        font-weight: 1000 !important;
+        color: #0f172a !important;
+        opacity: 1 !important;
+      }
+      .tp-table th {
+        background: var(--surface-soft);
+        font-weight: 700;
+      }
+      .tp-table tbody tr:nth-child(odd) {
+        background: var(--tp-card);
+      }
+      .tp-table tbody tr:nth-child(even) {
+        background: color-mix(in srgb, var(--surface-soft) 55%, var(--tp-card));
+      }
+      html[data-theme="dark"] .tp-table tbody tr:nth-child(even) {
+        background: color-mix(in srgb, var(--surface-soft) 65%, var(--tp-card));
+      }
+      .tp-table tbody tr:hover {
+        background: var(--surface-hover);
+      }
+      /* Ensure hover remains readable in dark when extensions/OS tweaks change fg */
+      html[data-theme="dark"] .tp-table tbody tr:hover {
+        color: var(--tp-text);
+      }
+      .tp-table tbody tr.selected {
+        background: var(--surface-active);
+      }
+      :root {
+        --tp-row-h: 32px;
+        --tp-head-h: 34px;
+      }
+      .tp-tableWrap {
+        position: relative;
+        overflow: hidden;
+        padding: 10px;
+      }
+      .tp-frame--sellers .tp-tableWrap {
+        padding-top: 0;
+      }
+      .tp-frame--sellers .tp-tableViewport {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+      .tpSectionActions .tp-btn {
+        border-radius: 6px;
+        padding: 2px 7px;
+        min-height: 18px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        background: var(--surface-soft);
+        color: var(--tp-muted);
+        border: 1px solid color-mix(in srgb, var(--tp-primary) 42%, var(--tp-border));
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16);
+      }
+      .tpSectionActions .tp-btn:hover {
+        background: var(--surface-hover);
+        color: var(--tp-text);
+        filter: none;
+      }
+      .tpSectionActions .tp-btn:focus-visible {
+        outline: 2px solid var(--tp-input-focus-color);
+        outline-offset: 1px;
+      }
+      .tp-tableViewport {
+        position: relative;
+        max-height: calc(var(--tp-head-h) + (var(--tp-row-h) * 5));
+        overflow: hidden;
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        border: 1px solid var(--tp-border);
+        border-radius: 12px;
+        background-clip: padding-box;
+        background: var(--tp-card);
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html[data-mode="panel"] .tp-tableViewport {
+        overflow-x: hidden;
+      }
+      .tp-table tbody tr {
+        height: var(--tp-row-h);
+      }
+      .tp-table thead th {
+        height: var(--tp-head-h);
+      }
+      .tp-table thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+      .tp-right {
+        text-align: right;
+      }
+      .tp-buybox {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        overflow: visible;
+      }
+      .tp-pill {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: visible;
+        background: #eafff2;
+        color: var(--tp-success);
+        border: 1px solid #b7f0cc;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+      /* Dark-mode BUYBOX pill: keep contrast and avoid washed look */
+      html[data-theme="dark"] .tp-pill {
+        background: rgba(22, 163, 74, 0.15);
+        border-color: rgba(22, 163, 74, 0.4);
+      }
+      .tp-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        align-items: stretch;
+      }
+      .tp-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .tp-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tp-field > label {
+        font-size: 12px;
+        color: var(--tp-muted);
+        font-weight: 600;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+        margin: 0 0 4px;
+      }
+      .tp-input {
+        box-sizing: border-box;
+        border: 1px solid var(--tp-input-border-color);
+        border-radius: var(--tp-input-radius);
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+      .tp-input:focus {
+        outline: none;
+      }
+      .tp-helper {
+        font-size: 12px;
+        color: var(--tp-muted);
+        margin-top: 2px;
+      }
+      .tp-inline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tp-inline .tp-input {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .tp-vat-mini {
+        justify-content: flex-end;
+      }
+      .tp-vat-mini .tp-segment button {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      .tp-vat-label {
+        font-size: 11px;
+        color: var(--tp-muted);
+        font-weight: 700;
+      }
+      .tp-label {
+        font-size: 12px;
+        color: var(--tp-muted);
+        font-weight: 600;
+      }
+      .tp-labelRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-height: 26px;
+        margin-bottom: 4px;
+      }
+      html[data-mode="panel"] {
+        --tp-row-h: 27px;
+        --tp-head-h: 29px;
+        --tp-input-h: 30px;
+        --tp-input-fs: 13px;
+        --tp-input-px: 10px;
+        --tp-input-pr-inline: 52px;
+      }
+      .tpMainGrid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 10px;
+        align-items: stretch;
+      }
+      .tpMainGridItem--buy {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      .tpMainGridItem--basket {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .tpMainGridItem--cargo {
+        grid-column: 1;
+        grid-row: 2;
+      }
+      .tpMainGridItem--net {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .tpMainGridItem--commission {
+        grid-column: 1;
+        grid-row: 3;
+      }
+      .tpRightBottomWrap {
+        grid-column: 2;
+        grid-row: 3;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 6px;
+        width: 100%;
+        min-width: 0;
+      }
+      /* Right-bottom visual styles are defined at the end of the style block. */
+      .tpFormCol {
+        gap: 8px;
+      }
+      .tpRightCol {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        justify-self: stretch;
+        align-self: stretch;
+      }
+      .tpFooterRow {
+        margin-top: 8px;
+        width: 100%;
+      }
+      .tpInputTile {
+        border-radius: 8px;
+      }
+      .tpInputTile .tpTileHead {
+        height: 22px;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 0 8px;
+        font-size: 11px;
+      }
+      .tp-field.tpTile.tpInputTile.tpMainGridItem--buy > .tpTileHead,
+      .tp-field.tpTile.tpInputTile.tpMainGridItem--cargo > .tpTileHead,
+      .tp-field.tpTile.tpInputTile.tpMainGridItem--commission > .tpTileHead {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      .tpInputTile .tpTileBody {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 6px;
+        padding: 8px;
+        min-height: 64px;
+        font-size: 13px;
+        font-weight: 400;
+        text-align: left;
+        background: var(--tp-card);
+      }
+      .tpInputTile.tpTile--primaryPrice .tpTileHead {
+        justify-content: center;
+        text-align: center;
+      }
+      .tpInputTile.tpTile--primaryPrice .tpTileBody {
+        justify-content: center;
+        padding: 6px 8px;
+      }
+      .tpTile input[type="text"],
+      .tpTile input[type="number"],
+      .tpTile .tp-input {
+        box-sizing: border-box;
+        width: 100%;
+        height: var(--tp-input-h);
+        padding: 0 var(--tp-input-px);
+        font-size: var(--tp-input-fs);
+        line-height: 1.2;
+        border-radius: var(--tp-input-radius);
+        border: 1px solid var(--tp-input-border-color);
+        box-shadow: none;
+      }
+      .tpInputTile.tpTile--primaryPrice .tp-input {
+        height: 56px;
+        padding: 0 14px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+      }
+      .tpInputMeta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .tpInputWrap {
+        position: relative;
+        width: 100%;
+      }
+      .tpMoney {
+        box-sizing: border-box;
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+        border: 1px solid var(--tp-input-border-color);
+        border-radius: var(--tp-input-radius);
+        transition: border-color 0.14s ease, box-shadow 0.14s ease;
+      }
+      .tpMoney:focus-within {
+        border-color: color-mix(in srgb, var(--tp-primary) 58%, var(--tp-input-border-color));
+      }
+      .tpMoney:has(.tp-input:focus-visible) {
+        box-shadow: 0 0 0 2px var(--tp-input-focus-color);
+      }
+      .tpMoneyPrefix {
+        box-sizing: border-box;
+        flex: 0 0 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        opacity: 0.9;
+        color: var(--tp-muted);
+        background: var(--tp-tile-head-bg);
+        border: 0;
+        border-right: 1px solid var(--tp-input-border-color);
+        border-radius: var(--tp-input-radius) 0 0 var(--tp-input-radius);
+        padding: 0;
+        line-height: 1;
+      }
+      .tpMoney input[type="text"],
+      .tpMoney input[type="number"],
+      .tpMoney .tp-input {
+        box-sizing: border-box;
+        flex: 1 1 auto;
+        width: 1%;
+        margin: 0;
+        border: 0;
+        border-radius: 0 var(--tp-input-radius) var(--tp-input-radius) 0;
+        outline: none;
+      }
+      .tpInputWrap .tp-input {
+        padding-right: var(--tp-input-pr-inline);
+      }
+      .tpInputInlineCheck {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        font-size: 8px;
+        color: var(--tp-muted);
+        letter-spacing: 0;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .tpInputInlineCheck input[type="checkbox"] {
+        transform: scale(0.72);
+        transform-origin: left center;
+        margin: 0 -4px 0 0;
+      }
+      .tpInputInlineCheck span {
+        opacity: 0.72;
+        font-weight: 600;
+        font-size: 8px !important;
+        line-height: 1 !important;
+      }
+      .tpTileSubline {
+        margin-top: 0;
+        font-size: 11px;
+        line-height: 1.2;
+      }
+      .tpTileFooterRow,
+      .tpCostFooter,
+      .tpCommissionFooter {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        min-width: 0;
+        font-size: clamp(10px, 2.2vw, 12px);
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+      .tpTileFooterRow .tpTileSubline,
+      .tpCostFooter .tpTileSubline,
+      .tpCommissionFooter .tpTileSubline {
+        margin: 0;
+        font-size: inherit;
+        line-height: inherit;
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .tpTileFooterRow .tpMiniToggle,
+      .tpCostFooter #vatWrap[data-for="cost"] {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+      .tpMiniToggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: inherit;
+        line-height: inherit;
+        color: var(--tp-muted);
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .tpMiniToggle input {
+        margin: 0;
+      }
+      html[data-mode="panel"] .tp-field.tpInputTile {
+        position: static;
+        padding-top: 0;
+        gap: 0;
+      }
+      html[data-mode="panel"] .tp-field.tpInputTile .tpTileBody {
+        padding: 8px;
+        gap: 4px;
+      }
+      html[data-mode="panel"] .tp-field.tpInputTile .tpInputWrap .tp-input {
+        padding-right: var(--tp-input-pr-inline);
+      }
+      html[data-mode="panel"] .tp-field.tpInputTile.tpTile--primaryPrice .tp-input {
+        height: 54px;
+        font-size: 18px;
+      }
+      html[data-mode="panel"] .tp-field.tpInputTile .tpTileHead {
+        font-size: 11px;
+        height: 20px;
+      }
+      #vatWrap[data-for="cost"] {
+        position: relative;
+        width: auto;
+        height: auto;
+      }
+      #vatWrap[data-for="cost"] .tp-select {
+        height: 18px;
+        min-height: 18px;
+        padding: 1px 14px 1px 6px;
+        font-size: inherit;
+        line-height: 1.1;
+        border-radius: 6px;
+        border: 1px solid rgba(127, 127, 127, 0.2);
+        background: rgba(255, 255, 255, 0.35);
+      }
+      #vatWrap[data-for="cost"] .tp-selectChevron {
+        right: 4px;
+        font-size: 10px;
+      }
+      .tp-selectWrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        width: 56px;
+        height: 26px;
+      }
+      .tp-select {
+        width: 100%;
+        height: 100%;
+        padding: 0 18px 0 8px;
+        border-radius: 8px;
+        border: 1px solid var(--tp-border);
+        background: var(--surface-soft);
+        color: var(--tp-text);
+        font-size: 12px;
+        line-height: 1;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+      .tp-select:focus {
+        border-color: rgba(120, 170, 255, 0.7);
+        box-shadow: 0 0 0 2px rgba(120, 170, 255, 0.18);
+      }
+      .tp-selectChevron {
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 10px;
+        opacity: 0.65;
+        pointer-events: none;
+      }
+      .tp-checkbox {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--tp-muted);
+      }
+      .tpQuickInfo {
+        border: 1px solid var(--tp-border);
+        border-radius: 10px;
+        background: var(--tp-card);
+        overflow: hidden;
+        width: 100%;
+        max-width: none;
+        justify-self: stretch;
+      }
+      .tpRightCol .tpQuickInfo {
+        margin-top: 0;
+        flex: 1 1 auto;
+      }
+      .tpTileGrid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 6px;
+        padding: 0;
+        width: 100%;
+      }
+      .tpTile {
+        width: 100%;
+        min-width: 0;
+        border: 1px solid var(--tp-border);
+        border-radius: 8px;
+        background: var(--tp-card);
+        overflow: hidden;
+      }
+      .tpTileFull {
+        grid-column: 1 / -1;
+      }
+      .tpTileHead {
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 6px;
+        font-size: 10px;
+        color: var(--tp-muted);
+        font-weight: 800;
+        border-bottom: 1px solid var(--tp-border);
+        background: var(--tp-tile-head-bg);
+        white-space: nowrap;
+      }
+      .tpTileBody {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 6px;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 700;
+        color: var(--tp-text);
+        background: color-mix(in srgb, var(--tp-card) 96%, var(--tp-border));
+      }
+      .tpTile.isSuccess .tpTileBody {
+        background: rgba(22, 163, 74, 0.12);
+      }
+      .tpMainGridItem--net .tpTileBody {
+        padding: 12px 6px;
+        background: transparent;
+      }
+      .tpMainGridItem--net .tpMoney {
+        background: var(--tp-input-bg);
+        border-color: var(--tp-border);
+      }
+      .tpMainGridItem--net .tpMoney .tp-input {
+        height: 56px;
+        font-size: 24px;
+        font-weight: 1000;
+        letter-spacing: 0.2px;
+        text-align: center;
+        color: var(--tp-text);
+        text-shadow: 0 1px 0 color-mix(in srgb, var(--tp-text) 18%, transparent);
+        background: var(--tp-input-bg);
+        border-color: var(--tp-border);
+      }
+      .tpMainGridItem--net .tpMoneyPrefix {
+        background: var(--tp-tile-head-bg);
+        border-right-color: var(--tp-input-border-color);
+      }
+      .tpMainGridItem--net #resultNetProfit {
+        pointer-events: none;
+      }
+      .tpMetricTile .tpTileHead {
+        justify-content: center;
+        text-align: center;
+      }
+      .tpMetricTile .tpTileBody {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .tpTile.isWarn .tpTileBody {
+        background: rgba(234, 179, 8, 0.14);
+      }
+      .tpTile.isDanger .tpTileBody {
+        background: rgba(220, 38, 38, 0.12);
+      }
+      .tpAccordion {
+        border: 1px solid var(--tp-border);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--tp-card);
+      }
+      .tpAccordion + .tpAccordion {
+        margin-top: 8px;
+      }
+      .tpAccToggle {
+        width: 100%;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background: var(--surface-soft);
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--tp-muted);
+        text-align: left;
+      }
+      .tpAccToggle:hover {
+        background: var(--surface-hover);
+      }
+      .tpAccToggle:focus-visible {
+        outline: 2px solid var(--tp-input-focus-color);
+        outline-offset: -2px;
+      }
+      .tpAccChevron {
+        font-size: 14px;
+        line-height: 1;
+        transition: transform 0.18s ease;
+      }
+      .tpAccToggle[aria-expanded="true"] .tpAccChevron {
+        transform: rotate(180deg);
+      }
+      .tpAccBody {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        padding: 0 12px;
+        border-top: 0 solid transparent;
+        background: var(--tp-card);
+        transition:
+          max-height 0.22s ease,
+          opacity 0.16s ease,
+          padding 0.16s ease,
+          border-top-color 0.16s ease;
+      }
+      .tpAccBody.open {
+        max-height: 420px;
+        opacity: 1;
+        padding: 10px 12px;
+        border-top: 1px solid var(--tp-border);
+      }
+      .tp-breakRow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        padding: 4px 0;
+        color: var(--tp-text);
+      }
+      .tp-breakRow strong {
+        font-weight: 700;
+      }
+      /* Genel Döküm: sonuç satırı */
+      #generalBreakdownBody .tpRow--result {
+        margin-top: 8px;
+        padding-top: 10px;
+        border-top: 1px solid var(--tp-border);
+      }
+      #generalBreakdownBody .tpRow--result .tpBreakVal {
+        font-weight: 800;
+      }
+      #generalBreakdownBody .tpRow--result .tpBreakKey {
+        font-weight: 700;
+      }
+      /* KDV Dökümü: sonuç satırı */
+      #vatBreakdownBody .tpRow--result {
+        margin-top: 8px;
+        padding-top: 10px;
+        border-top: 1px solid var(--tp-border);
+      }
+      #vatBreakdownBody .tpRow--result .tpBreakVal {
+        font-weight: 800;
+      }
+      #vatBreakdownBody .tpRow--result .tpBreakKey {
+        font-weight: 700;
+      }
+      .tp-refreshStatus {
+        font-size: 11px;
+        color: var(--tp-muted);
+        margin-top: 6px;
+      }
+      .tp-btn.loading {
+        opacity: 0.7;
+        cursor: default;
+      }
+      /* ===============================
+         FINAL LOCK  RIGHT BOTTOM BLOCK
+         =============================== */
+
+      #rightBottomWrap {
+        /* layout */
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: 1fr 1fr !important;
+        gap: 10px !important;
+
+        /* sizing */
+        width: 100% !important;
+        min-width: 0 !important;
+
+        /* NOTHING else can affect it */
+        align-self: start !important;
+        justify-self: stretch !important;
+      }
+
+      /* tiles */
+      #rightBottomWrap > .tpTile {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+        border-radius: 10px !important;
+      }
+
+      /* header */
+      #rightBottomWrap .tpTileHead {
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 0 0 40% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 8px !important;
+
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+        text-align: center !important;
+        color: var(--tp-muted) !important;
+        background: var(--surface-soft) !important;
+        border-bottom: 1px solid var(--tp-border) !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      /* body */
+      #rightBottomWrap .tpTileBody {
+        flex: 0 0 60% !important;
+        min-height: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        color: var(--tp-text) !important;
+        padding: 6px !important;
+        background: var(--tp-card) !important;
+      }
+
+      /* ROI band (dynamic via JS) */
+      #rightBottomWrap .tpMetricTile--roi .tpTileBody {
+        background: var(--tp-card) !important;
+        transition: background-color 0.18s ease;
+      }
+      #rightBottomWrap .tpMetricTile--margin .tpTileBody {
+        background: var(--tp-card) !important;
+      }
+      /* Sellers table: keep header spacing visually consistent */
+      html[data-mode="panel"] .tp-table thead th {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        text-align: center !important;
+      }
+      html[data-mode="panel"] .tp-table tbody td {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+        text-align: center !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tp-shell">
+      <div class="tp-topbar">
+        <div class="tp-brand">
+          <div class="tp-logoWrap" aria-label="GercekKar.com">
+            <img class="tp-logo tp-logo--light" src="assets/Logo_Light.png" alt="GercekKar.com" />
+            <img class="tp-logo tp-logo--dark" src="assets/Logo_Dark.png" alt="GercekKar.com" />
+          </div>
+        </div>
+        <div class="tp-controlStack">
+          <div class="tp-themeToggle" id="dockToggle" role="group" aria-label="Panel Konumu">
+            <button type="button" class="tp-themeBtn" data-dock-choice="left" aria-pressed="false">
+              Sol
+            </button>
+            <button type="button" class="tp-themeBtn" data-dock-choice="right" aria-pressed="false">
+              Sağ
+            </button>
+          </div>
+          <div class="tp-themeToggle" id="themeToggle" role="group" aria-label="Tema">
+            <button type="button" class="tp-themeBtn" data-theme-choice="light" aria-pressed="false">
+              Açık
+            </button>
+            <button type="button" class="tp-themeBtn" data-theme-choice="dark" aria-pressed="false">
+              Koyu
+            </button>
+          </div>
+        </div>
+        <button id="panelCloseBtn" class="tp-panelClose" type="button" aria-label="Paneli Kapat">
+          ×
+        </button>
+      </div>
+
+      <div class="tp-section tp-frame tp-frame--sellers">
+        <div class="tp-tableWrap">
+          <div class="tp-tableViewport">
+            <table class="tp-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Satıcı</th>
+                  <th class="tp-right">Stok</th>
+                  <th class="tp-right">Puan</th>
+                  <th class="tp-right">Kupon</th>
+                  <th class="tp-right">Sepet Fiyatı</th>
+                </tr>
+              </thead>
+              <tbody id="tableBodySellers"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tp-section">
+        <div class="tpMainGrid">
+            <div class="tp-field tpTile tpInputTile tpMainGridItem--buy">
+              <div class="tpTileHead">Ürün Maliyeti</div>
+              <div class="tpTileBody tpBuyCostBody">
+                <div class="tpInputWrap">
+                  <div class="tpMoney">
+                    <span class="tpMoneyPrefix" aria-hidden="true">₺</span>
+                    <input id="inputBuyCost" class="tp-input" type="text" inputmode="decimal" placeholder="0" />
+                  </div>
+                  <label class="tp-checkbox tpInputInlineCheck">
+                    <input type="checkbox" id="chkBuyCostVatIncluded" checked />
+                    <span>KDV Dahil</span>
+                  </label>
+                </div>
+                <div class="tpCostFooter">
+                  <div id="buyHelperText" class="tp-helper tpTileSubline">KDV Hariç: -</div>
+                  <div class="tp-selectWrap" id="vatWrap" data-for="cost">
+                    <select class="tp-select" id="vatSelect" aria-label="KDV Oranı">
+                      <option value="1">%1</option>
+                      <option value="10">%10</option>
+                      <option value="20" selected>%20</option>
+                    </select>
+                    <span class="tp-selectChevron" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tp-field tpTile tpInputTile tpMainGridItem--cargo">
+              <div class="tpTileHead">Kargo Ücreti</div>
+              <div class="tpTileBody">
+                <div class="tpInputWrap">
+                  <div class="tpMoney">
+                    <span class="tpMoneyPrefix" aria-hidden="true">₺</span>
+                    <input id="inputCargo" class="tp-input" type="text" inputmode="decimal" placeholder="0" />
+                  </div>
+                  <label class="tp-checkbox tpInputInlineCheck">
+                    <input id="chkCargoVatIncluded" type="checkbox" checked />
+                    <span>KDV Dahil</span>
+                  </label>
+                </div>
+                <div class="tpTileFooterRow">
+                  <div id="cargoHelperText" class="tp-helper tpTileSubline">KDV Hariç: -</div>
+                  <label class="tpMiniToggle">
+                    <input id="sameDayShippingChk" type="checkbox" />
+                    <span>Aynı Gün</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="tp-field tpTile tpInputTile tpMainGridItem--commission">
+              <div class="tpTileHead">Komisyon Oranı</div>
+              <div class="tpTileBody">
+                <div class="tpInputWrap">
+                  <div class="tpMoney tpMoney--pct">
+                    <span class="tpMoneyPrefix" aria-hidden="true">%</span>
+                    <input id="inputCommission" class="tp-input" type="text" inputmode="decimal" placeholder="0" />
+                  </div>
+                  <label class="tp-checkbox tpInputInlineCheck">
+                    <input id="chkCommissionVatIncluded" type="checkbox" checked />
+                    <span>KDV Dahil</span>
+                  </label>
+                </div>
+                <div class="tpCostFooter">
+                  <div id="commissionHelperText" class="tp-helper tpTileSubline">KDV Hariç: -</div>
+                </div>
+              </div>
+            </div>
+            <div class="tp-field tpTile tpInputTile tpTile--primaryPrice tpMainGridItem--basket">
+              <div class="tpTileHead">Sepet Fiyatı</div>
+              <div class="tpTileBody">
+                <div class="tpMoney">
+                  <span class="tpMoneyPrefix" aria-hidden="true">₺</span>
+                  <input id="inputSalePrice" class="tp-input" type="text" inputmode="decimal" placeholder="0" />
+                </div>
+              </div>
+            </div>
+                <div class="tpTile tpInputTile tpMetricTile tpTile--primaryPrice tpMainGridItem--net">
+                  <div class="tpTileHead">Gerçek Kar</div>
+                  <div class="tpTileBody">
+                    <div class="tpMoney">
+                      <span class="tpMoneyPrefix" aria-hidden="true">₺</span>
+                      <input
+                        id="resultNetProfit"
+                        class="tp-input"
+                        type="text"
+                        readonly
+                        tabindex="-1"
+                        aria-label="Net Kâr"
+                      />
+                    </div>
+                  </div>
+                </div>
+              <div id="rightBottomWrap" class="tpRightBottomWrap tpRightBottomWrap--svg">
+                <div class="tpTile tpInputTile tpMetricTile tpMetricTile--roi">
+                  <div class="tpTileHead">Yatırım Getirisi (ROI)</div>
+                  <div class="tpTileBody" id="resultRoi">-</div>
+                </div>
+                <div class="tpTile tpInputTile tpMetricTile tpMetricTile--margin">
+                  <div class="tpTileHead">Kâr Oranı</div>
+                  <div class="tpTileBody" id="resultMargin">-</div>
+                </div>
+              </div>
+        </div>
+        <div class="tpFooterRow">
+          <div class="tpAccordion">
+            <button
+              class="tpAccToggle"
+              id="generalBreakdownToggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="generalBreakdownBody"
+            >
+              <span>GENEL DÖKÜM</span>
+              <span class="tpAccChevron" id="generalChevron">▾</span>
+            </button>
+            <div class="tpAccBody" id="generalBreakdownBody">
+              <div class="tp-breakRow">
+                <span>Satış Bedeli (KDV Dahil)</span><span id="generalSale">-</span>
+              </div>
+              <div class="tp-breakRow"><span>Ürün Maliyeti</span><span id="generalBuy">-</span></div>
+              <div class="tp-breakRow"><span>Kargo Bedeli</span><span id="generalCargo">-</span></div>
+              <div class="tp-breakRow">
+                <span>Komisyon Bedeli</span><span id="generalCommission">-</span>
+              </div>
+              <div class="tp-breakRow"><span>Hizmet Bedeli</span><span id="generalService">-</span></div>
+              <div class="tp-breakRow"><span>Ödenecek KDV</span><span id="generalPayableVat">-</span></div>
+              <div class="tp-breakRow tpRow--result">
+                <strong class="tpBreakKey">Gerçek Kar (KDV Sonrası)</strong>
+                <strong class="tpBreakVal" id="generalNetAfterVat">-</strong>
+              </div>
+            </div>
+          </div>
+          <div class="tpAccordion">
+            <button
+              class="tpAccToggle"
+              id="vatBreakdownToggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="vatBreakdownBody"
+            >
+              <span>KDV DÖKÜMÜ</span>
+              <span class="tpAccChevron" id="vatChevron">▾</span>
+            </button>
+            <div class="tpAccBody" id="vatBreakdownBody">
+              <div class="tp-breakRow"><span>Satıştan Oluşan KDV</span><span id="breakdownSaleVat">-</span></div>
+              <div class="tp-breakRow"><span>Alıştan Oluşan KDV</span><span id="breakdownBuyVat">-</span></div>
+              <div class="tp-breakRow"><span>Kargodan Oluşan KDV</span><span id="breakdownCargoVat">-</span></div>
+              <div class="tp-breakRow"><span>Komisyondan Oluşan KDV</span><span id="breakdownCommissionVat">-</span></div>
+              <div class="tp-breakRow"><span>Hizmet Bedelinden Oluşan KDV</span><span id="breakdownServiceVat">-</span></div>
+              <div class="tp-breakRow tpRow--result">
+                <strong class="tpBreakKey">Ödenecek KDV</strong>
+                <strong class="tpBreakVal" id="breakdownPayableVat">-</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
