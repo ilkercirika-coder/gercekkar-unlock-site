@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hazır ✅</title>
+    <link rel="stylesheet" href="assets/site.css" />
+  </head>
+  <body>
+    <main class="site-wrap">
+      <section class="tp-card unlock-card" aria-labelledby="successTitle">
+        <header class="hero">
+          <img src="assets/Logo_Light.png" alt="GercekKar" class="site-logo site-logo--light" />
+          <img src="assets/Logo_Dark.png" alt="GercekKar" class="site-logo site-logo--dark" />
+          <h1 id="successTitle">Hazır ✅</h1>
+        </header>
+
+        <ol class="steps">
+          <li>Extension popup'ını aç</li>
+          <li>Lisans Kodu alanına yapıştır</li>
+          <li>Devam et</li>
+        </ol>
+
+        <section class="result" aria-live="polite">
+          <h2>Lisans Kodun</h2>
+          <pre id="licenseKey" class="license-box" tabindex="0"></pre>
+          <div class="result-actions">
+            <button type="button" class="tp-btn tp-btn--secondary" id="copyBtn">Kopyala</button>
+            <span class="copy-status" id="copyStatus"></span>
+          </div>
+          <a href="index.html" class="tp-btn tp-btn--secondary next-btn">Geri Dön</a>
+        </section>
+
+        <div id="missingPanel" class="warn-panel hidden">
+          Lisans kodu bulunamadı. Önce kilit açma adımını tamamlayıp tekrar gel.
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/site.js"></script>
+  </body>
+</html>
